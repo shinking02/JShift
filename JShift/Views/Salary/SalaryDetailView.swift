@@ -42,7 +42,7 @@ struct SalaryDetailView: View {
                             .foregroundStyle(.secondary)
                     }
                     HStack {
-                        let avgMinutes = salary.events.map(\.minutes).reduce(0, +) / max(salary.events.count, 0)
+                        let avgMinutes = salary.events.map(\.minutes).reduce(0, +) / max(salary.events.count, 1)
                         Text("平均勤務時間")
                         Spacer()
                         Text("\(avgMinutes / 60)時間 \(avgMinutes % 60)分")

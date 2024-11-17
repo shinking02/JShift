@@ -25,19 +25,14 @@ struct CalendarView: UIViewRepresentable {
     func updateUIView(_ uiView: UIViewType, context: Context) {
         context.coordinator.parent = self
         context.coordinator.observeChanges(in: uiView)
+        context.coordinator.clearAllCaches()
+        context.coordinator.reloadCalendarDecorations(in: uiView)
         DispatchQueue.main.async {
             let components = (1...31).compactMap { day -> DateComponents? in
                 guard let year = uiView.visibleDateComponents.year, let month = uiView.visibleDateComponents.month else { return nil }
                 return DateComponents(year: year, month: month, day: day)
             }
             uiView.reloadDecorations(forDateComponents: components, animated: true)
-        }
-        
-        if context.coordinator.reloadWorkItem != nil {
-            DispatchQueue.main.async {
-                context.coordinator.clearAllCaches()
-                context.coordinator.reloadCalendarDecorations(in: uiView)
-            }
         }
     }
 

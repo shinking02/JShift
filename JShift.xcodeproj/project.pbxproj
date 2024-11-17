@@ -15,10 +15,9 @@
 		5436B8372CE8E99B00E8CBFA /* Shimmer in Frameworks */ = {isa = PBXBuildFile; productRef = 5436B8362CE8E99B00E8CBFA /* Shimmer */; };
 		5436B83A2CE8E9D300E8CBFA /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 5436B8392CE8E9D300E8CBFA /* CachedAsyncImage */; };
 		5436B83D2CE8EA3900E8CBFA /* LicenseList in Frameworks */ = {isa = PBXBuildFile; productRef = 5436B83C2CE8EA3900E8CBFA /* LicenseList */; };
-		5436B8402CE8EADE00E8CBFA /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 5436B83F2CE8EADE00E8CBFA /* RiveRuntime */; };
 		5436B8482CE8EBFC00E8CBFA /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5436B8472CE8EBFC00E8CBFA /* RealmSwift */; };
 		5436B8492CE8ECF500E8CBFA /* RealmSwift in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 5436B8472CE8EBFC00E8CBFA /* RealmSwift */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		5436B84F2CE8EEE500E8CBFA /* shapes.riv in Resources */ = {isa = PBXBuildFile; fileRef = 5436B84D2CE8EEE500E8CBFA /* shapes.riv */; };
+		5436BA3A2CE9769F00E8CBFA /* RiveRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = 5436BA392CE9769F00E8CBFA /* RiveRuntime */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,11 +55,10 @@
 		5436B60A2CE8DEEC00E8CBFA /* JShift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JShift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5436B61E2CE8DEEF00E8CBFA /* JShiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JShiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5436B6282CE8DEEF00E8CBFA /* JShiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JShiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5436B84D2CE8EEE500E8CBFA /* shapes.riv */ = {isa = PBXFileReference; lastKnownFileType = file; path = shapes.riv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		5436B6302CE8DEEF00E8CBFA /* Exceptions for "JShift" folder in "JShift" target */ = {
+		5436B98E2CE96D8600E8CBFA /* Exceptions for "JShift" folder in "JShift" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Info.plist,
@@ -70,14 +68,6 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		5436B60C2CE8DEEC00E8CBFA /* JShift */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				5436B6302CE8DEEF00E8CBFA /* Exceptions for "JShift" folder in "JShift" target */,
-			);
-			path = JShift;
-			sourceTree = "<group>";
-		};
 		5436B6212CE8DEEF00E8CBFA /* JShiftTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = JShiftTests;
@@ -86,6 +76,14 @@
 		5436B62B2CE8DEEF00E8CBFA /* JShiftUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = JShiftUITests;
+			sourceTree = "<group>";
+		};
+		5436B9452CE96D8600E8CBFA /* JShift */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				5436B98E2CE96D8600E8CBFA /* Exceptions for "JShift" folder in "JShift" target */,
+			);
+			path = JShift;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -99,8 +97,8 @@
 				5436B6DD2CE8E27700E8CBFA /* GoogleSignInSwift in Frameworks */,
 				5436B8312CE8E7DA00E8CBFA /* GoogleAPIClientForREST_Calendar in Frameworks */,
 				5436B6D82CE8E0F400E8CBFA /* HolidayJp in Frameworks */,
-				5436B8402CE8EADE00E8CBFA /* RiveRuntime in Frameworks */,
 				5436B83D2CE8EA3900E8CBFA /* LicenseList in Frameworks */,
+				5436BA3A2CE9769F00E8CBFA /* RiveRuntime in Frameworks */,
 				5436B8342CE8E94B00E8CBFA /* NotificationPermission in Frameworks */,
 				5436B8372CE8E99B00E8CBFA /* Shimmer in Frameworks */,
 				5436B8482CE8EBFC00E8CBFA /* RealmSwift in Frameworks */,
@@ -128,11 +126,10 @@
 		5436B6012CE8DEEC00E8CBFA = {
 			isa = PBXGroup;
 			children = (
-				5436B60C2CE8DEEC00E8CBFA /* JShift */,
+				5436B9452CE96D8600E8CBFA /* JShift */,
 				5436B6212CE8DEEF00E8CBFA /* JShiftTests */,
 				5436B62B2CE8DEEF00E8CBFA /* JShiftUITests */,
 				5436B60B2CE8DEEC00E8CBFA /* Products */,
-				5436B84E2CE8EEE500E8CBFA /* RiveAssets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -144,14 +141,6 @@
 				5436B6282CE8DEEF00E8CBFA /* JShiftUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		5436B84E2CE8EEE500E8CBFA /* RiveAssets */ = {
-			isa = PBXGroup;
-			children = (
-				5436B84D2CE8EEE500E8CBFA /* shapes.riv */,
-			);
-			path = RiveAssets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,7 +160,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				5436B60C2CE8DEEC00E8CBFA /* JShift */,
+				5436B9452CE96D8600E8CBFA /* JShift */,
 			);
 			name = JShift;
 			packageProductDependencies = (
@@ -183,8 +172,8 @@
 				5436B8362CE8E99B00E8CBFA /* Shimmer */,
 				5436B8392CE8E9D300E8CBFA /* CachedAsyncImage */,
 				5436B83C2CE8EA3900E8CBFA /* LicenseList */,
-				5436B83F2CE8EADE00E8CBFA /* RiveRuntime */,
 				5436B8472CE8EBFC00E8CBFA /* RealmSwift */,
+				5436BA392CE9769F00E8CBFA /* RiveRuntime */,
 			);
 			productName = JShift;
 			productReference = 5436B60A2CE8DEEC00E8CBFA /* JShift.app */;
@@ -276,8 +265,8 @@
 				5436B8352CE8E99B00E8CBFA /* XCRemoteSwiftPackageReference "SwiftUI-Shimmer" */,
 				5436B8382CE8E9D300E8CBFA /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
 				5436B83B2CE8EA3900E8CBFA /* XCRemoteSwiftPackageReference "LicenseList" */,
-				5436B83E2CE8EADE00E8CBFA /* XCRemoteSwiftPackageReference "rive-ios" */,
 				5436B8462CE8EBFC00E8CBFA /* XCRemoteSwiftPackageReference "realm-swift" */,
+				5436BA382CE9769F00E8CBFA /* XCRemoteSwiftPackageReference "rive-ios" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 5436B60B2CE8DEEC00E8CBFA /* Products */;
@@ -296,7 +285,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5436B84F2CE8EEE500E8CBFA /* shapes.riv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,20 +695,20 @@
 				minimumVersion = 1.1.1;
 			};
 		};
-		5436B83E2CE8EADE00E8CBFA /* XCRemoteSwiftPackageReference "rive-ios" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/rive-app/rive-ios";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.3.7;
-			};
-		};
 		5436B8462CE8EBFC00E8CBFA /* XCRemoteSwiftPackageReference "realm-swift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/realm/realm-swift.git";
 			requirement = {
 				branch = master;
 				kind = branch;
+			};
+		};
+		5436BA382CE9769F00E8CBFA /* XCRemoteSwiftPackageReference "rive-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/rive-app/rive-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.9.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
@@ -766,15 +754,15 @@
 			package = 5436B83B2CE8EA3900E8CBFA /* XCRemoteSwiftPackageReference "LicenseList" */;
 			productName = LicenseList;
 		};
-		5436B83F2CE8EADE00E8CBFA /* RiveRuntime */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 5436B83E2CE8EADE00E8CBFA /* XCRemoteSwiftPackageReference "rive-ios" */;
-			productName = RiveRuntime;
-		};
 		5436B8472CE8EBFC00E8CBFA /* RealmSwift */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 5436B8462CE8EBFC00E8CBFA /* XCRemoteSwiftPackageReference "realm-swift" */;
 			productName = RealmSwift;
+		};
+		5436BA392CE9769F00E8CBFA /* RiveRuntime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5436BA382CE9769F00E8CBFA /* XCRemoteSwiftPackageReference "rive-ios" */;
+			productName = RiveRuntime;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

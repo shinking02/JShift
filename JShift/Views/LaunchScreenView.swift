@@ -22,7 +22,7 @@ struct LaunchScreenView: View {
                                 .offset(x: 200, y: 100)
                         )
                     VStack {
-                        Image(colorScheme == .light ? "icon_light" : "icon_dark")
+                        Image(colorScheme == .light ? "black_logo" : "white_logo")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .padding(80)

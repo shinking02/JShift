@@ -33,50 +33,61 @@ struct SalaryContentView: View {
     }
 
     var body: some View {
-        List {
-            Chart {
-                ForEach(salaryData, id: \.self) { salary in
-                    let jobSalary = salary.isConfirmed ? salary.confirmedSalary : salary.forecastSalary + (salary.job.isCommuteWage && includeCommuteWage ? salary.events.count * salary.job.commuteWage : 0)
-                    SectorMark(
-                        angle: .value("", jobSalary),
-                        innerRadius: .ratio(0.9),
-                        angularInset: 1.5
-                    )
-                    .cornerRadius(3)
-                    .foregroundStyle(salary.job.color.toColor())
+        Group {
+            if salaryData.isEmpty && otJobTotalSalary == 0 {
+                ContentUnavailableView {
+                    Label("給与がありません", systemImage: "carrot.fill")
                 }
-                SectorMark(
-                    angle: .value("", otJobTotalSalary),
-                    innerRadius: .ratio(0.9),
-                    angularInset: 1.5
-                )
-                .cornerRadius(3)
-                .foregroundStyle(Color.secondary)
-            }
-            .animation(.none)
-            .frame(height: 260)
-            .listRowBackground(Color.clear)
-            .chartBackground { chartProxy in
-                GeometryReader { geometry in
-                    let frame = geometry[chartProxy.plotFrame!]
-                    VStack {
-                        Text("合計")
-                            .foregroundStyle(.secondary)
-                            .font(.caption)
-                        Text("\(totalSalary + otJobTotalSalary)円")
-                            .font(.title2.bold())
+                .background(Color(.systemGroupedBackground))
+            } else {
+                List {
+                    Chart {
+                        ForEach(salaryData, id: \.self) { salary in
+                            let jobSalary = salary.isConfirmed ? salary.confirmedSalary : salary.forecastSalary + (salary.job.isCommuteWage && includeCommuteWage ? salary.events.count * salary.job.commuteWage : 0)
+                            SectorMark(
+                                angle: .value("", jobSalary),
+                                innerRadius: .ratio(0.9),
+                                angularInset: 1.5
+                            )
+                            .cornerRadius(3)
+                            .foregroundStyle(salary.job.color.toColor())
+                        }
+                        SectorMark(
+                            angle: .value("", otJobTotalSalary),
+                            innerRadius: .ratio(0.9),
+                            angularInset: 1.5
+                        )
+                        .cornerRadius(3)
+                        .foregroundStyle(Color.secondary)
                     }
-                    .contentTransition(.numericText(countsDown: true))
-                    .position(x: frame.midX, y: frame.midY - 5)
+                    .animation(.none)
+                    .frame(height: 260)
+                    .listRowBackground(Color.clear)
+                    .chartBackground { chartProxy in
+                        GeometryReader { geometry in
+                            let frame = geometry[chartProxy.plotFrame!]
+                            VStack {
+                                Text("合計")
+                                    .foregroundStyle(.secondary)
+                                    .font(.caption)
+                                Text("\(totalSalary + otJobTotalSalary)円")
+                                    .font(.title2.bold())
+                            }
+                            .contentTransition(.numericText(countsDown: true))
+                            .position(x: frame.midX, y: frame.midY - 5)
+                        }
+                    }
+                    ForEach(salaryData) { salary in
+                        SalaryRowView(includeCommuteWage: $includeCommuteWage, salary: salary, date: date, dateMode: dateMode)
+                    }
+                    OTSalaryRowView(includeCommuteWage: $includeCommuteWage, date: date, dateMode: dateMode)
                 }
             }
-            ForEach(salaryData) { salary in
-                SalaryRowView(includeCommuteWage: $includeCommuteWage, salary: salary, date: date, dateMode: dateMode)
-            }
-            OTSalaryRowView(includeCommuteWage: $includeCommuteWage, date: date, dateMode: dateMode)
         }
         .onAppear {
-            salaryData = SalaryManager.shared.getSalaryData(date: date, jobs: jobs, dateMode: dateMode)
+            salaryData = SalaryManager.shared.getSalaryData(date: date, jobs: jobs, dateMode: dateMode).filter { salary in
+                return !salary.events.isEmpty || salary.forecastSalary + salary.confirmedSalary > 0 || salary.isConfirmed
+            }
         }
         .onChange(of: addSheetIsPresented) {
             if !addSheetIsPresented {
