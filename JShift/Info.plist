@@ -15,6 +15,8 @@
 	</array>
 	<key>CommitHash</key>
 	<string>undefined</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>GIDClientID</key>
 	<string>436915999720-skvom40bgp7vbkhm3tdme9jknucpf850.apps.googleusercontent.com</string>
 	<key>UIBackgroundModes</key>
