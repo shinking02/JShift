@@ -36,7 +36,7 @@ struct ContentView: View {
             },
             content: {
                 OBWelcomeView(
-                    title: "ようこそJobShiftへ",
+                    title: "ようこそJShiftへ",
                     detailText: "全体的な動作の改善を行いました。",
                     bulletedListItems: [
                         .init(title: "給料日", description: "給料日の月を設定できるようになりました。デフォルトでは翌月になっています。", symbolName: "yensign"),
