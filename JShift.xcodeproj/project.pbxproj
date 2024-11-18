@@ -150,6 +150,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5436B6312CE8DEEF00E8CBFA /* Build configuration list for PBXNativeTarget "JShift" */;
 			buildPhases = (
+				54B6E1372CEBA57F0089E70A /* Get Commit Hash */,
 				5436B6062CE8DEEC00E8CBFA /* Sources */,
 				5436B6072CE8DEEC00E8CBFA /* Frameworks */,
 				5436B6082CE8DEEC00E8CBFA /* Resources */,
@@ -303,6 +304,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		54B6E1372CEBA57F0089E70A /* Get Commit Hash */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${TEMP_DIR}/Preprocessed-Info.plist",
+			);
+			name = "Get Commit Hash";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFile=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncommitHash=$(git rev-parse --short HEAD)\n$plistBuddy -c \"Set :CommitHash $commitHash\" $infoPlistFile\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5436B6062CE8DEEC00E8CBFA /* Sources */ = {
@@ -458,6 +481,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -515,6 +539,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_PREPROCESS = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
