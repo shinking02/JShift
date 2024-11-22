@@ -314,7 +314,6 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${TEMP_DIR}/Preprocessed-Info.plist",
 			);
 			name = "Get Commit Hash";
 			outputFileListPaths = (
@@ -323,7 +322,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFile=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncommitHash=$(git rev-parse --short HEAD)\n$plistBuddy -c \"Set :CommitHash $commitHash\" $infoPlistFile\n";
+			shellScript = "plistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFile=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncommitHash=$(git rev-parse --short HEAD)\n$plistBuddy -c \"Set :CommitHash $commitHash\" $infoPlistFile\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -376,6 +375,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"JShift/Preview Content\"";
 				DEVELOPMENT_TEAM = 8KH9QD5V23;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JShift/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
@@ -409,6 +409,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"JShift/Preview Content\"";
 				DEVELOPMENT_TEAM = 8KH9QD5V23;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JShift/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
