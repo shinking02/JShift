@@ -308,6 +308,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		54B6E1372CEBA57F0089E70A /* Get Commit Hash */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
