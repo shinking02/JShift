@@ -56,36 +56,38 @@ final class SalaryManager {
     
     private func getJobEvents(interval: DateInterval, job: Job) -> [JobEvent] {
         let realm = try! Realm()
-        let jobEvents: [JobEvent] = realm.objects(Event.self).where({
-            $0.start >= interval.start &&
-            $0.start < interval.end &&
-            $0.summary == job.name
-        }).compactMap { event in
-            // Get the wage that started closest to the event's start but not after it
-            let applicableWage = job.wages
-                .filter { $0.start <= event.start }
-                .sorted { $0.start > $1.start }
-                .first
-            
-            // Ensure a wage is found, otherwise skip the event
-            guard let wage = applicableWage else { return nil }
-            
-            // Calculate regular and late-night minutes
-            var (regularMinutes, nightMinutes) = calculateWorkingMinutes(event: event)
-            
-            // Apply breaks to the working minutes
-            let breaks = job.breaks.filter { $0.isActive }
-            if !breaks.isEmpty {
-                let totalWorkingMinutes = regularMinutes + nightMinutes
-                let breakMinutes = calculateBreakMinutes(totalWorkingMinutes: totalWorkingMinutes, breaks: breaks)
-                // Subtract break time from regular and night minutes
-                (regularMinutes, nightMinutes) = applyBreaks(regularMinutes: regularMinutes, nightMinutes: nightMinutes, breakMinutes: breakMinutes)
+        let jobEvents: [JobEvent] = realm.objects(Event.self)
+            .where({
+                $0.start >= interval.start &&
+                $0.start < interval.end &&
+                $0.summary == job.name
+            })
+            .sorted { $0.start < $1.start }
+            .compactMap { event in
+                // Get the wage that started closest to the event's start but not after it
+                let applicableWage = job.wages
+                    .filter { $0.start <= event.start }
+                    .sorted { $0.start > $1.start }
+                    .first
+                // Ensure a wage is found, otherwise skip the event
+                guard let wage = applicableWage else { return nil }
+                
+                // Calculate regular and late-night minutes
+                var (regularMinutes, nightMinutes) = calculateWorkingMinutes(event: event)
+                
+                // Apply breaks to the working minutes
+                let breaks = job.breaks.filter { $0.isActive }
+                if !breaks.isEmpty {
+                    let totalWorkingMinutes = regularMinutes + nightMinutes
+                    let breakMinutes = calculateBreakMinutes(totalWorkingMinutes: totalWorkingMinutes, breaks: breaks)
+                    // Subtract break time from regular and night minutes
+                    (regularMinutes, nightMinutes) = applyBreaks(regularMinutes: regularMinutes, nightMinutes: nightMinutes, breakMinutes: breakMinutes)
+                }
+                
+                let salary = calculateSalary(wage: wage.wage, regularMinutes: regularMinutes, nightMinutes: nightMinutes, job: job, event: event) - (job.isCommuteWage ? -job.commuteWage : 0)
+                        
+                return JobEvent(event: event, salary: max(0, salary), minutes: max(0, regularMinutes + nightMinutes))
             }
-            
-            let salary = calculateSalary(wage: wage.wage, regularMinutes: regularMinutes, nightMinutes: nightMinutes, job: job, event: event) - (job.isCommuteWage ? -job.commuteWage : 0)
-                    
-            return JobEvent(event: event, salary: max(0, salary), minutes: max(0, regularMinutes + nightMinutes))
-        }
         return jobEvents
     }
     
