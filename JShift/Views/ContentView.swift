@@ -4,7 +4,7 @@ struct ContentView: View {
     @State private var selectedTab: Tab = .shift
     @State private var isWelcomePresented = false
     @Environment(\.openURL) private var openURL
-    private let AVAIABLE_OB_VERSION = "2"
+    private let AVAIABLE_OB_VERSION = "3"
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -36,11 +36,12 @@ struct ContentView: View {
             },
             content: {
                 OBWelcomeView(
-                    title: "ようこそJShiftへ",
-                    detailText: "全体的な動作の改善を行いました。",
+                    title: "アップデート内容",
+                    detailText: "",
                     bulletedListItems: [
-                        .init(title: "給料日", description: "給料日の月を設定できるようになりました。デフォルトでは翌月になっています。", symbolName: "yensign"),
-                        .init(title: "パフォーマンス", description: "処理速度, 消費電力, Googleとの同期の安定性が向上しました。", symbolName: "swift"),
+                        .init(title: "給料表示", description: "給料が0円のバイトを表示しないオプションを追加しました。設定画面から確認してみてください。", symbolName: "lightbulb.max.fill", tintColor: UIColor(.yellow)),
+                        .init(title: "勤務日", description: "勤務期間が誤っている不具合やその他の軽微な不具合を修正しました。", symbolName: "calendar"),
+                        .init(title: "Github", description: "アプリのコミットハッシュを取得できない不具合を修正しました。", symbolName: "externaldrive.fill.badge.questionmark", tintColor: UIColor(.green))
                     ],
                     boldButtonItem: .init(title: "続ける", action: {
                         isWelcomePresented = false

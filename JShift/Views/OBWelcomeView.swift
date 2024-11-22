@@ -38,7 +38,8 @@ struct OBWelcomeView: UIViewControllerRepresentable {
             welcomeController.addBulletedListItem(
                 title: bulletedListItem.title,
                 description: bulletedListItem.description,
-                symbolName: bulletedListItem.symbolName
+                symbolName: bulletedListItem.symbolName,
+                tintColor: bulletedListItem.tintColor
             )
         }
         
@@ -126,15 +127,18 @@ extension OBWelcomeController {
         let title: NSString
         let description: NSString
         let symbolName: NSString
+        let tintColor: UIColor
         
         init(
             title: NSString,
             description: NSString,
-            symbolName: NSString
+            symbolName: NSString,
+            tintColor: UIColor = .tintColor
         ) {
             self.title = title
             self.description = description
             self.symbolName = symbolName
+            self.tintColor = tintColor
         }
     }
 }
