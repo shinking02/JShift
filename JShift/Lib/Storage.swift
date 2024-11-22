@@ -1,9 +1,6 @@
 import Foundation
 
 enum UserDefaultsKeys {
-//    static let lastSyncedEmail = "LAST_SYNCED_EMAIL"
-//    static let isDevelopperMode = "IS_DEVELOPPER_MODE"
-//    static let userCalendars = "USER_CALENDARS"
     static let googleSyncTokens = "JS_GOOGLE_SYNC_TOKENS"
     static let lastSeenOnboardingVersion = "JS_LAST_SEEN_ONBOARDING_VERSION"
     static let defaultCalendarId = "JS_DEFAULT_CALENDAR_ID"
@@ -12,6 +9,7 @@ enum UserDefaultsKeys {
     static let enableSalaryPaymentNotification = "JS_ENABLE_SALARY_PAYMENT_NOTIFICATION"
     static let isDisableEventSuggest = "JS_IS_DISABLE_EVENT_SUGGEST"
     static let eventSuggestIntervalWeek = "JS_EVENT_SUGGEST_INTERVAL_WEEK"
+    static let isDisableDisplayZeroSalaryJob = "JS_IS_DISABLE_DISPLAY_ZERO_SALARY_JOB"
 }
 
 struct Storage {
@@ -70,5 +68,11 @@ struct Storage {
     }
     static func setEventSuggestIntervalWeek(_ value: Int) {
         UserDefaults.standard.set(value, forKey: UserDefaultsKeys.eventSuggestIntervalWeek)
+    }
+    static func getIsDisableDisplayZeroSalaryJob() -> Bool {
+        return UserDefaults.standard.bool(forKey: UserDefaultsKeys.isDisableDisplayZeroSalaryJob)
+    }
+    static func setIsDisableDisplayZeroSalaryJob(_ value: Bool) {
+        UserDefaults.standard.set(value, forKey: UserDefaultsKeys.isDisableDisplayZeroSalaryJob)
     }
 }

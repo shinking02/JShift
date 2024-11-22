@@ -17,7 +17,7 @@ extension Job {
         let endMonth = month != nil ? startMonth + 1 : 12
         let startDaysCount = Date(year: year, month: startMonth, day: 1).daysInMonth
         let endDaysCount = Date(year: year, month: endMonth, day: 1).daysInMonth
-        let startDate = Date(year: year, month: startMonth, day: min(self.salary.cutOffDay + 1, startDaysCount))
+        let startDate = Date(year: year, month: startMonth, day: min(self.salary.cutOffDay + 1, startDaysCount + 1))
         let endDate = Date(year: year, month: endMonth, day: min(self.salary.cutOffDay, endDaysCount))
         return DateInterval(start: startDate.fixed(hour: 0, minute: 0, second: 0), end: endDate.fixed(hour: 23, minute: 59, second: 59))
     }

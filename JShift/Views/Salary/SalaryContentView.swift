@@ -80,13 +80,22 @@ struct SalaryContentView: View {
                     ForEach(salaryData) { salary in
                         SalaryRowView(includeCommuteWage: $includeCommuteWage, salary: salary, date: date, dateMode: dateMode)
                     }
-                    OTSalaryRowView(includeCommuteWage: $includeCommuteWage, date: date, dateMode: dateMode)
+                    if !Storage.getIsDisableDisplayZeroSalaryJob() || otJobTotalSalary > 0 {
+                        OTSalaryRowView(includeCommuteWage: $includeCommuteWage, date: date, dateMode: dateMode)
+                    }
                 }
             }
         }
         .onAppear {
             salaryData = SalaryManager.shared.getSalaryData(date: date, jobs: jobs, dateMode: dateMode).filter { salary in
                 return !salary.events.isEmpty || salary.forecastSalary + salary.confirmedSalary > 0 || salary.isConfirmed
+            }.filter { data in
+                if Storage.getIsDisableDisplayZeroSalaryJob() {
+                    if data.events.isEmpty && data.forecastSalary + data.confirmedSalary == 0 {
+                        return false
+                    }
+                }
+                return true
             }
         }
         .onChange(of: addSheetIsPresented) {

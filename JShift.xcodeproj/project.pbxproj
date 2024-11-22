@@ -308,6 +308,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		54B6E1372CEBA57F0089E70A /* Get Commit Hash */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -323,7 +324,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\nplistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFile=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncommitHash=$(git rev-parse --short HEAD)\n$plistBuddy -c \"Set :CommitHash $commitHash\" $infoPlistFile\n";
+			shellScript = "plistBuddy=\"/usr/libexec/PlistBuddy\"\ninfoPlistFile=\"${TEMP_DIR}/Preprocessed-Info.plist\"\n\ncommitHash=$(git rev-parse --short HEAD)\n$plistBuddy -c \"Set :CommitHash $commitHash\" $infoPlistFile\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -376,8 +377,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"JShift/Preview Content\"";
 				DEVELOPMENT_TEAM = 8KH9QD5V23;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JShift/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -388,7 +391,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShinKawakami.JShift.JShift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -408,8 +411,10 @@
 				DEVELOPMENT_ASSET_PATHS = "\"JShift/Preview Content\"";
 				DEVELOPMENT_TEAM = 8KH9QD5V23;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JShift/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.finance";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -420,7 +425,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ShinKawakami.JShift.JShift;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
