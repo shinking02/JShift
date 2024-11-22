@@ -41,7 +41,7 @@ struct ContentView: View {
                     bulletedListItems: [
                         .init(title: "給料表示", description: "給料が0円のバイトを表示しないオプションを追加しました。設定画面の詳細から確認してみてください。", symbolName: "lightbulb.max.fill", tintColor: UIColor(.yellow)),
                         .init(title: "勤務日", description: "勤務期間が誤っている不具合やその他の軽微な不具合を修正しました。", symbolName: "calendar"),
-                        .init(title: "Github", description: "アプリのコミットハッシュを取得できない不具合を修正しました。", symbolName: "externaldrive.fill.badge.questionmark", tintColor: UIColor(.green))
+                        .init(title: "その他", description: "アプリのコミットハッシュを取得できない不具合を修正。\n一部UIが更新されない不具合を修正。", symbolName: "externaldrive.fill.badge.questionmark", tintColor: UIColor(.green))
                     ],
                     boldButtonItem: .init(title: "続ける", action: {
                         isWelcomePresented = false
