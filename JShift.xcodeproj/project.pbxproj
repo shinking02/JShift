@@ -315,6 +315,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
+				"${TEMP_DIR}/Preprocessed-Info.plist",
 			);
 			name = "Get Commit Hash";
 			outputFileListPaths = (
