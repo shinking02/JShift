@@ -46,7 +46,7 @@ struct ContentView: View {
                     boldButtonItem: .init(title: "続ける", action: {
                         isWelcomePresented = false
                     }),
-                    linkButtonItem: .init(title: "詳細", action: { openURL(URL(string: "https://github.com/shinking02/JobShift/pull/77")!) })
+                    linkButtonItem: .init(title: "詳細", action: { openURL(URL(string: "https://github.com/shinking02/JShift/pull/1")!) })
                 )
             }
         )
