@@ -4,7 +4,7 @@ struct ContentView: View {
     @State private var selectedTab: Tab = .shift
     @State private var isWelcomePresented = false
     @Environment(\.openURL) private var openURL
-    private let AVAIABLE_OB_VERSION = "3"
+    private let AVAIABLE_OB_VERSION = "4"
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -39,14 +39,13 @@ struct ContentView: View {
                     title: "アップデート内容",
                     detailText: "",
                     bulletedListItems: [
-                        .init(title: "給料表示", description: "給料が0円のバイトを表示しないオプションを追加しました。設定画面の詳細から確認してみてください。", symbolName: "lightbulb.max.fill", tintColor: UIColor(.yellow)),
-                        .init(title: "勤務日", description: "勤務期間が誤っている不具合やその他の軽微な不具合を修正しました。", symbolName: "calendar"),
-                        .init(title: "その他", description: "アプリのコミットハッシュを取得できない不具合を修正。\n一部UIが更新されない不具合を修正。", symbolName: "externaldrive.fill.badge.questionmark", tintColor: UIColor(.green))
+                        .init(title: "チャート", description: "年間給与のチャートを復活させました。", symbolName: "chart.bar.xaxis.ascending", tintColor: UIColor(.green)),
+                        .init(title: "給与表示", description: "給与の表示順を給与の高い順に変更しました。", symbolName: "arrow.up.arrow.down", tintColor: UIColor(.blue)),
                     ],
                     boldButtonItem: .init(title: "続ける", action: {
                         isWelcomePresented = false
                     }),
-                    linkButtonItem: .init(title: "詳細", action: { openURL(URL(string: "https://github.com/shinking02/JShift/pull/1")!) })
+                    linkButtonItem: .init(title: "詳細", action: { openURL(URL(string: "https://github.com/shinking02/JShift/commit/2bb25dfe5a226385cea768bd6562368fe5018ade")!) })
                 )
             }
         )
