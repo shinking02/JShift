@@ -96,7 +96,7 @@ struct SalaryContentView: View {
                     }
                 }
                 return true
-            }
+            }.sorted { ($0.isConfirmed ? $0.confirmedSalary : $0.forecastSalary) > ($1.isConfirmed ? $1.confirmedSalary : $1.forecastSalary) }
         }
         .onChange(of: addSheetIsPresented) {
             if !addSheetIsPresented {

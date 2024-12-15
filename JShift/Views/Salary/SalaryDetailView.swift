@@ -1,4 +1,5 @@
 import SwiftUI
+import Charts
 
 struct SalaryDetailView: View {
     @Binding var includeCommuteWage: Bool
@@ -34,6 +35,50 @@ struct SalaryDetailView: View {
                 }
                 .contentTransition(.numericText(countsDown: true))
                 
+                if dateMode == .year {
+                    let average = monthlySalary.map { ($0.isConfirmed ? $0.confirmedSalary : $0.forecastSalary) + ($0.job.isCommuteWage && includeCommuteWage ? $0.events.count * job.commuteWage : 0) }.reduce(0, +) / max(monthlySalary.count, 1)
+                    
+                    Section {
+                        VStack(alignment: .leading, spacing: 0) {
+                            Text("月の平均")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                            Text("\(average)")
+                                .font(.title.bold())
+                            + Text(" 円")
+                                .bold()
+                                .foregroundColor(.secondary)
+                            Chart {
+                                ForEach(Array(monthlySalary.enumerated()), id: \.element) { index, mSalary in
+                                    BarMark(
+                                        x: .value("月", "\(index + 1)"),
+                                        y: .value("給与", (mSalary.isConfirmed ? mSalary.confirmedSalary : mSalary.forecastSalary) + (mSalary.job.isCommuteWage && includeCommuteWage ? mSalary.events.count * job.commuteWage : 0))
+                                    )
+                                    .foregroundStyle(job.color.toColor().opacity(0.3))
+                                }
+                                RuleMark(y: .value("平均", average))
+                                    .foregroundStyle(job.color.toColor())
+                                    .annotation(position: .top, alignment: .trailing) {
+                                        Text("¥\(average)")
+                                            .font(.caption)
+                                            .foregroundStyle(job.color.toColor())
+                                    }
+                            }
+                            .frame(height: 200)
+                            .chartYAxis {
+                                AxisMarks(position: .trailing) { value in
+                                    AxisValueLabel {
+                                        if let intValue = value.as(Int.self) {
+                                            Text("\(intValue / 10000)")
+                                        }
+                                    }
+                                }
+                            }
+                            .chartYAxisLabel("万円")
+                        }
+                    }
+                }
+
                 Section {
                     HStack {
                         Text("出勤回数")
