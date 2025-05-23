@@ -116,6 +116,17 @@ struct CalendarView: UIViewRepresentable {
         }
 
         private func calculateDecoration(dateComponents: DateComponents) -> UICalendarView.Decoration? {
+            
+            if dateComponents.month == 1 && dateComponents.day == 19 {
+                return .customView {
+                        let label = UILabel()
+                        label.text = "🎉"
+                        label.font = UIFont.systemFont(ofSize: 12)
+                        label.textAlignment = .center
+                        return label
+                    }
+            }
+            
             let dateEvents = getDateEvents(dateComponents)
             let dayOTJobs = parent.otJobs.filter { $0.date.isSameDay(dateComponents.date ?? Date()) }
             let dayJob = parent.jobs.first { job in dateEvents.contains { $0.summary == job.name } }
