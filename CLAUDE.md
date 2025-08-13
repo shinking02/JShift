@@ -78,10 +78,11 @@ Follow Angular convention with prefixes:
 - `docs:` Documentation changes
 - `style:` Code formatting
 - `refactor:` Code restructuring
+- `perf:` Performance improvements
 - `test:` Testing changes
 - `chore:` Build/tool changes
 
-Messages should be under 50 characters including prefix, in English, imperative mood.
+Messages should be under 50 characters including prefix, in English, imperative mood. Do not end with a trailing period.
 
 ### SwiftData Schema Management
 - Models are versioned (currently JobSchemaV1)
