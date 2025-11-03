@@ -2,7 +2,7 @@ import RealmSwift
 import SwiftData
 import SwiftUI
 
-struct ShiftSheetView: View {
+struct DateShiftView: View {
     @Binding var selectedDate: Date
     @Query(sort: \Job.order) private var jobs: [Job]
     @Query private var otJobs: [OneTimeJob]
@@ -35,15 +35,62 @@ struct ShiftSheetView: View {
     private var dateOtJobs: [OneTimeJob] {
         otJobs.filter { $0.date.isSameDay(selectedDate) }
     }
-    private var paymentDayJobs: [Job] {
-        jobs.filter { job in
+    private var paymentDayJobsWithSalary: [(job: Job, salary: Int)] {
+        jobs.compactMap { job in
+            guard job.displayPaymentDay else { return nil }
             let paymentDay = job.getPaymentDay(year: selectedDate.year, month: selectedDate.month)
-            return paymentDay.isSameDay(selectedDate) && job.displayPaymentDay
+            guard paymentDay.isSameDay(selectedDate) else { return nil }
+
+            guard let salaryData = SalaryManager.shared
+                .getSalaryData(date: selectedDate, jobs: [job], dateMode: .month)
+                .first else { return nil }
+            let amountInt: Int
+            if salaryData.isConfirmed {
+                amountInt = Int(salaryData.confirmedSalary)
+            } else {
+                amountInt = Int(salaryData.forecastSalary)
+            }
+            guard amountInt > 0 else { return nil }
+            return (job: job, salary: amountInt)
         }
     }
     
     var body: some View {
         NavigationStack {
+            HStack {
+                Text("\(selectedDate.toString(.weekday))")
+                    .font(.title3.bold())
+                Spacer()
+                HStack {
+                    Button(
+                        action: {
+                            showOTJobAddSheet = true
+                        },
+                        label: {
+                            Image(systemName: "plus.circle.dashed")
+                            Text("単発")
+                        }
+                    )
+                    .controlSize(.mini)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    Spacer().frame(width: 8)
+                    Button(
+                        action: {
+                            showAddEventSheet = true
+                        },
+                        label: {
+                            Image(systemName: "plus.circle")
+                            Text("予定")
+                        }
+                    )
+                    .controlSize(.mini)
+                    .buttonStyle(.borderedProminent)
+                    .buttonBorderShape(.capsule)
+                    .disabled(jobs.isEmpty)
+                }
+            }
+            .padding(.horizontal, 16)
             ScrollView {
                 ForEach(dateEvents) { event in
                     Group {
@@ -66,14 +113,13 @@ struct ShiftSheetView: View {
                     }
                     .padding(.horizontal)
                 }
-                ForEach(paymentDayJobs) { job in
+                ForEach(paymentDayJobsWithSalary, id: \.job.id) { paymentDayJob in
                     Group {
-                        Divider()
-                        PaymentDayRowView(job: job, date: selectedDate)
+                        PaymentDayRowView(job: paymentDayJob.job, date: selectedDate, salary: paymentDayJob.salary)
                     }
                     .padding(.horizontal)
                 }
-                if dateEvents.isEmpty && dateOtJobs.isEmpty && paymentDayJobs.isEmpty && suggestedEvents.isEmpty{
+                if dateEvents.isEmpty && dateOtJobs.isEmpty && paymentDayJobsWithSalary.isEmpty && suggestedEvents.isEmpty{
                     Divider()
                     Text("予定がありません")
                         .bold()
@@ -104,42 +150,6 @@ struct ShiftSheetView: View {
                 await CalendarManager.shared.syncGoogleCalendar(skipSyncCalendarList: true)
             }
             .frame(maxWidth: .infinity)
-            .toolbar {
-                if #available(iOS 26.0, *) {
-                    ToolbarItem(placement: .navigation) {
-                        Text("\(selectedDate.toString(.weekday))")
-                            .font(.title3.bold())
-                            .fixedSize(horizontal: true, vertical: false)
-                    }
-                    .sharedBackgroundVisibility(.hidden)
-                } else {
-                    ToolbarItem(placement: .navigation) {
-                        Text("\(selectedDate.toString(.weekday))")
-                            .font(.title3.bold())
-                    }
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(
-                        action: {
-                            showOTJobAddSheet = true
-                        },
-                        label: {
-                            Image("custom.pencil.and.list.clipboard.badge.plus")
-                        }
-                    )
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button(
-                        action: {
-                            showAddEventSheet = true
-                        },
-                        label: {
-                            Image(systemName: "plus")
-                        }
-                    )
-                    .disabled(jobs.isEmpty)
-                }
-            }
         }
         .onChange(of: selectedDate) {
             suggestedEvents = getSuggestEvents(selectedDate)

@@ -23,6 +23,7 @@ struct ShiftView: View {
                 )
                 .frame(height: 470)
                 Spacer()
+                DateShiftView(selectedDate: $selectedDate)
             }
             .onAppear {
                 if isInitial && !isWelcomePresented {
@@ -47,16 +48,6 @@ struct ShiftView: View {
                         isSheetPresented = true
                     }
                 }
-            }
-            .sheet(isPresented: $isSheetPresented) {
-                ShiftSheetView(selectedDate: $selectedDate)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                    .presentationDetents([.height(240), .large])
-                    .presentationCornerRadius(18)
-                    .presentationBackground(.bar)
-                    .presentationBackgroundInteraction(.enabled(upThrough: .large))
-                    .interactiveDismissDisabled()
-                    .bottomMaskForSheet()
             }
         }
     }
