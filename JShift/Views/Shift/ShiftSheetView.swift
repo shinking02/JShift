@@ -105,9 +105,18 @@ struct ShiftSheetView: View {
             }
             .frame(maxWidth: .infinity)
             .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Text("\(selectedDate.toString(.weekday))")
-                        .font(.title3.bold())
+                if #available(iOS 26.0, *) {
+                    ToolbarItem(placement: .navigation) {
+                        Text("\(selectedDate.toString(.weekday))")
+                            .font(.title3.bold())
+                            .fixedSize(horizontal: true, vertical: false)
+                    }
+                    .sharedBackgroundVisibility(.hidden)
+                } else {
+                    ToolbarItem(placement: .navigation) {
+                        Text("\(selectedDate.toString(.weekday))")
+                            .font(.title3.bold())
+                    }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(
