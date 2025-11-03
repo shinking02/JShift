@@ -27,7 +27,7 @@ struct SettingView: View {
                     }
                 }
                 Section(footer:
-                    Text("© 2024 Shin Kawakami")
+                    Text("© 2024-2025 Shin Kawakami")
                     .frame(maxWidth: .infinity, alignment: .center)
                     .foregroundStyle(.secondary)
                 ) {

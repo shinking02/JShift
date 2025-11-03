@@ -4,7 +4,7 @@ struct ContentView: View {
     @State private var selectedTab: Tab = .shift
     @State private var isWelcomePresented = false
     @Environment(\.openURL) private var openURL
-    private let AVAIABLE_OB_VERSION = "4"
+    private let AVAIABLE_OB_VERSION = "5(last)"
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -39,13 +39,12 @@ struct ContentView: View {
                     title: "アップデート内容",
                     detailText: "",
                     bulletedListItems: [
-                        .init(title: "チャート", description: "年間給与のチャートを復活させました。", symbolName: "chart.bar.xaxis.ascending", tintColor: UIColor(.green)),
-                        .init(title: "給与表示", description: "給与の表示順を給与の高い順に変更しました。", symbolName: "arrow.up.arrow.down", tintColor: UIColor(.blue)),
+                        .init(title: "iOS 26に対応 🎉", description: "iOS 26対応と軽微な不具合の修正", symbolName: "apple.logo", tintColor: UIColor(.green)),
                     ],
                     boldButtonItem: .init(title: "続ける", action: {
                         isWelcomePresented = false
                     }),
-                    linkButtonItem: .init(title: "詳細", action: { openURL(URL(string: "https://github.com/shinking02/JShift/commit/2bb25dfe5a226385cea768bd6562368fe5018ade")!) })
+                    linkButtonItem: .init(title: "詳細", action: { openURL(URL(string: "https://github.com/shinking02/JShift/pull/12")!) })
                 )
             }
         )
