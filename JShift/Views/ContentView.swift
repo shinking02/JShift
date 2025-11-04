@@ -4,7 +4,7 @@ struct ContentView: View {
     @State private var selectedTab: Tab = .shift
     @State private var isWelcomePresented = false
     @Environment(\.openURL) private var openURL
-    private let AVAIABLE_OB_VERSION = "5(last)"
+    private let AVAIABLE_OB_VERSION = "5"
     
     var body: some View {
         TabView(selection: $selectedTab) {
