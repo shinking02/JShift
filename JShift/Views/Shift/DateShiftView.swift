@@ -36,14 +36,17 @@ struct DateShiftView: View {
         otJobs.filter { $0.date.isSameDay(selectedDate) }
     }
     private var paymentDayJobsWithSalary: [(job: Job, salary: Int)] {
-        jobs.compactMap { job in
+        let salaryDataByJob = Dictionary(
+            uniqueKeysWithValues: SalaryManager.shared
+                .getSalaryData(date: selectedDate, jobs: jobs, dateMode: .month)
+                .map { ($0.job.id, $0) }
+        )
+
+        return jobs.compactMap { job in
             guard job.displayPaymentDay else { return nil }
             let paymentDay = job.getPaymentDay(year: selectedDate.year, month: selectedDate.month)
             guard paymentDay.isSameDay(selectedDate) else { return nil }
-
-            guard let salaryData = SalaryManager.shared
-                .getSalaryData(date: selectedDate, jobs: [job], dateMode: .month)
-                .first else { return nil }
+            guard let salaryData = salaryDataByJob[job.id] else { return nil }
             let amountInt: Int
             if salaryData.isConfirmed {
                 amountInt = Int(salaryData.confirmedSalary)
@@ -81,7 +84,7 @@ struct DateShiftView: View {
                         },
                         label: {
                             Image(systemName: "plus.circle")
-                            Text("予定")
+                            Text("長期")
                         }
                     )
                     .controlSize(.mini)

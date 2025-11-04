@@ -39,7 +39,7 @@ struct ContentView: View {
                     title: "アップデート内容",
                     detailText: "",
                     bulletedListItems: [
-                        .init(title: "iOS 26に対応 🎉", description: "iOS 26対応と軽微な不具合の修正", symbolName: "apple.logo", tintColor: UIColor(.green)),
+                        .init(title: "iOS 26に対応", description: "iOS 26対応と軽微な不具合の修正", symbolName: "apple.logo", tintColor: UIColor(.green)),
                     ],
                     boldButtonItem: .init(title: "続ける", action: {
                         isWelcomePresented = false
