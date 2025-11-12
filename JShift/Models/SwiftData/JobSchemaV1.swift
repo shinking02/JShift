@@ -9,7 +9,7 @@ enum JobSchemaV1: VersionedSchema {
     
     @Model
     final class Job {
-        let id: UUID = UUID()
+        var id: UUID = UUID()
         var name: String = ""
         var color: JobColor = JobColor.red
         var salaryType: JobSalaryType = JobSalaryType.hourly
@@ -57,7 +57,7 @@ enum JobSchemaV1: VersionedSchema {
     
     @Model
     final class OneTimeJob {
-        let id: UUID = UUID()
+        var id: UUID = UUID()
         var name: String = ""
         var date: Date = Date()
         var salary: Int = 0
