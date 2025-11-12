@@ -60,7 +60,7 @@ struct SalaryContentView: View {
                         .cornerRadius(3)
                         .foregroundStyle(Color.secondary)
                     }
-                    .animation(.none)
+                    .animation(nil, value: salaryData)
                     .frame(height: 260)
                     .listRowBackground(Color.clear)
                     .chartBackground { chartProxy in
@@ -105,3 +105,4 @@ struct SalaryContentView: View {
         }
     }
 }
+

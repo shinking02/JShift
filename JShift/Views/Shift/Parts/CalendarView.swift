@@ -133,7 +133,12 @@ struct CalendarView: UIViewRepresentable {
             let paymentDayJob = parent.jobs.first { $0.getPaymentDay(year: dateComponents.year ?? 0, month: dateComponents.month ?? 0).isSameDay(dateComponents.date ?? Date()) && $0.displayPaymentDay }
 
             if let paymentDayJob = paymentDayJob {
-                return createCustomDecoration(dayJob: dayJob, dayOTJobs: dayOTJobs, paymentDayJob: paymentDayJob, dateEvents: dateEvents)
+                let paymentJobSalary = SalaryManager.shared
+                    .getSalaryData(date: dateComponents.date ?? Date(), jobs: [paymentDayJob], dateMode: .month)
+                    .first
+                if let paymentJobSalary = paymentJobSalary, (paymentJobSalary.confirmedSalary > 0 || paymentJobSalary.forecastSalary > 0) {
+                    return createCustomDecoration(dayJob: dayJob, dayOTJobs: dayOTJobs, paymentDayJob: paymentDayJob, dateEvents: dateEvents)
+                }
             }
             if let dayJob = dayJob {
                 return .default(color: UIColor(dayJob.color.toColor()))
@@ -152,6 +157,7 @@ struct CalendarView: UIViewRepresentable {
                     UIImage(named: "custom.yensign.badge", in: nil, with: UIImage.SymbolConfiguration(paletteColors: [UIColor(.secondary), UIColor(paymentDayJob.color.toColor())])), size: .large
                 )
             }
+            
             return .image(UIImage(systemName: "yensign"), color: UIColor(paymentDayJob.color.toColor()), size: .large)
         }
 

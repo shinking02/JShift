@@ -23,6 +23,7 @@ final class CalendarManager {
     
     private func syncCalendarList() async {
         let fetchCalendarsQuery = GTLRCalendarQuery_CalendarListList.query()
+        fetchCalendarsQuery.maxResults = 250
         await withCheckedContinuation { continuation in
             service.executeQuery(fetchCalendarsQuery) { ticket, response, error in
                 if let error {
@@ -43,6 +44,7 @@ final class CalendarManager {
         let fetchEventsQuery = GTLRCalendarQuery_EventsList.query(withCalendarId: calendarId)
         fetchEventsQuery.singleEvents = true
         fetchEventsQuery.syncToken = syncToken
+        fetchEventsQuery.maxResults = 1500
         
         await withCheckedContinuation { continuation in
             service.executeQuery(fetchEventsQuery) { ticket, response, error in
